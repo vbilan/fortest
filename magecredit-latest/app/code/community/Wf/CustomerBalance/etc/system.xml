@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+        <customer translate="label">
+            <groups>
+                <wf_customerbalance translate="label">
+                    <label>Store Credit Options (Magecredit)</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>80</sort_order>
+                    <fields>
+                        <verison>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>wf_customerbalance/adminhtml_system_config_version</frontend_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </verison>
+                        <is_enabled translate="label">
+                            <label>Enable Store Credit Functionality</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_cache</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </is_enabled>
+                        <show_history translate="label">
+                            <label>Show Store Credit History to Customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_history>
+                        <show_comments_in_frontend_history translate="label">
+                            <label>Show Comments in Frontend Balance History</label>
+                            <comment>If yes, store credit history in the frontend (in the customer's My Account / Store Credit section) will show comments associated with each transfer. Comments also specified in the backend when creating a manual transfer will also be shown in the frontend.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_comments_in_frontend_history>
+                        <refund_automatically translate="label">
+                            <label>Default Refund to Store Credit</label>
+                            <comment>If yes, then by default when a credit memo is processed in the backend, the "refund to store credit" checkbox will be checked.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </refund_automatically>
+                        <always_refund_store_credit_orders_to_store_credit translate="label">
+                            <label>Store Credit Orders Must Refund to Store Credit</label>
+                            <comment>If yes, then administrators will not be allowed to refund orders that were paid 100% with store credit to anything but the customer's original store credit account.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </always_refund_store_credit_orders_to_store_credit>
+                        <shared_balance translate="label description">
+                            <label>Share Store Credit Balance Across All Websites</label>
+                            <comment>If yes, the first website in your store will be used as store credit for all websites. You must also set the Magento config option 'Share Customer Accounts' to 'Global' in order for this feature to make sense.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shared_balance>
+                        <email_identity translate="label">
+                            <label>Store Credit Update Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_identity>
+                        <email_template translate="label">
+                            <label>Store Credit Update Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
+                        <import_store_credit translate="label comment">
+                            <label>Import Store Credit</label>
+                            <comment><![CDATA[Select a .csv file and click 'Save Config' to import. <br/> See guide on importing store credit from a CSV file <a href="https://www.magecredit.com/import_store_credit_from_csv.html" target="_blank" title="Import store credit from CSV file">here</a>]]></comment>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>wf_customerbalance/system_config_backend_import</backend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </import_store_credit>
+                        <expire_remaining_credit_after_order translate="label">
+                            <label>Expire Remaining Credit After Orders</label>
+                            <comment><![CDATA[If yes, a customer's store credit balance will be brought down to 0.00 after each order which store credit is used. For example, if a customer has a $75 store credit balance and places a $50 order using $50 in store credit to pay for the order, then his/her store credit balance will be $0 after the order is placed, not $25.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </expire_remaining_credit_after_order>
+                        <help>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>wf_customerbalance/adminhtml_system_config_help</frontend_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </help>
+                    </fields>
+                </wf_customerbalance>
+            </groups>
+        </customer>
+        <sales>
+            <groups>
+                <totals_sort>
+                    <fields>
+                        <customerbalance module="wf_customerbalance" translate="label">
+                            <label>Store Credit (Magecredit)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </customerbalance>
+                    </fields>
+                </totals_sort>
+            </groups>
+        </sales>
+    </sections>
+</config>

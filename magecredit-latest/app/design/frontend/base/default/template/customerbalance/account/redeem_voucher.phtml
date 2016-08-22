@@ -1,0 +1,31 @@
+<?php
+$_formUrl = $this->getUrl('wf_customerbalance/voucher/redeem', array('_secure' => $this->getRequest()->isSecure()));
+?>
+<div class="redeem-voucher">
+    <h2 class="sub-title"><?php echo $this->__('Redeem Voucher'); ?></h2>
+    <p class="explanation">
+        <?php echo $this->__("If you were given a store credit voucher to redeem here's where you can do it."); ?>
+    </p>
+    <form action="<?php echo $_formUrl; ?>" method="post" autocomplete="off" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="voucher-code">
+                    <div class="field voucher-code">
+                        <label for="code" class="required">
+                            <em>*</em><?php echo $this->__('Voucher Code'); ?>
+                        </label>
+                        <div class="input-box">
+                            <input type="text" id="code" name="code" title="<?php echo $this->__('Voucher Code'); ?>" maxlength="255" class="input-text required-entry">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <button type="submit" title="<?php echo $this->__('Redeem Voucher'); ?>" class="button">
+                    <span><span><?php echo $this->__('Redeem Voucher'); ?></span></span>
+                </button>
+            </li>
+        </ul>
+    </form>
+</div>

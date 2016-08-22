@@ -1,0 +1,16 @@
+.customerbalance-stats {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.customerbalance-stats .total-outstanding {
+    font-weight: 500;
+}
+
+
+.head-adminhtml-balances, 
+.head-adminhtml-promo-voucher { 
+    background-image:url(../images/magecredit.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}

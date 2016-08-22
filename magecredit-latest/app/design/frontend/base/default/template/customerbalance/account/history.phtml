@@ -1,0 +1,39 @@
+<div class="balance-history">
+<?php if ($this->canShow() && $this->getEvents() && count($this->getEvents())): ?>
+    <h2 class="table-caption"><?php echo Mage::helper('wf_customerbalance')->__('Balance History'); ?></h2>
+    <table id="customerbalance-history" class="data-table table table-striped table-bordered table-hover">
+        <col width="100" />
+        <col width="50" />
+        <col width="100" />
+        <col width="150" />
+        <?php if ($this->showCommentsInHistory()): ?>
+            <col />
+        <?php endif; ?>
+        <thead>
+            <tr>
+                <th><?php echo Mage::helper('wf_customerbalance')->__('Action'); ?></th>
+                <th><?php echo Mage::helper('wf_customerbalance')->__('Balance Change'); ?></th>
+                <th><?php echo Mage::helper('wf_customerbalance')->__('Balance'); ?></th>
+                <th><?php echo Mage::helper('wf_customerbalance')->__('Date'); ?></th>
+                <?php if ($this->showCommentsInHistory()): ?>
+                    <th><?php echo Mage::helper('wf_customerbalance')->__('Comments'); ?></th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getEvents() as $event): ?>
+            <tr>
+                <td><?php echo $this->getActionLabel($event->getAction()); ?></td>
+                <td><?php echo Mage::helper('core')->currency($event->getBalanceDelta()); ?></td>
+                <td><?php echo Mage::helper('core')->currency($event->getBalanceAmount()); ?></td>
+                <td><?php echo Mage::helper('core')->formatDate($event->getUpdatedAt(), 'short', true); ?></td>
+                <?php if ($this->showCommentsInHistory()): ?>
+                    <td><?php echo $event->getAdditionalInfo(); ?></td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('customerbalance-history')</script>
+<?php endif; ?>
+</div>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <report>
+            <children>
+                <customers>
+                    <children>
+                        <balances translate="title" module="wf_customerbalance">
+                            <title>Store Credit Report</title>
+                            <action>adminhtml/balances</action>
+                        </balances>
+                    </children>
+                </customers>
+            </children>
+        </report>
+         <promo>
+            <children>
+                <voucher translate="title" module="wf_customerbalance">
+                    <title>Store Credit Vouchers</title>
+                    <action>adminhtml/promo_voucher/</action>
+                    <depends><module>Mage_Sales</module></depends>
+                </voucher>
+            </children>
+         </promo>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <report>
+                        <children>
+                            <customers>
+                                <children>
+                                    <balances translate="title" module="wf_customerbalance">
+                                        <title>Store Credit Report</title>
+                                    </balances>
+                                </children>
+                            </customers>
+                        </children>
+                    </report>
+                    <customer>
+                        <children>
+                            <storecredit translate="title" module="wf_customerbalance">
+                                <title>Store Credit (magecredit)</title>
+                                <sort_order>40</sort_order>
+                                <children>
+                                    <view translate="title">
+                                        <title>View Store Credit</title>
+                                    </view>
+                                    <add_or_deduct translate="title">
+                                        <title>Add or Deduct Store Credit</title>
+                                    </add_or_deduct>
+                                </children>
+                            </storecredit>
+                        </children>
+                    </customer>
+                    <promo>
+                        <children>
+                            <voucher translate="title" module="wf_customerbalance">
+                                <title>Store Credit Vouchers (magecredit)</title>
+                            </voucher>
+                        </children>
+                    </promo>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

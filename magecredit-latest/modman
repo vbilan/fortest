@@ -1,0 +1,14 @@
+app/etc/modules/Wf_CustomerBalance.xml app/etc/modules/Wf_CustomerBalance.xml
+app/code/community/Wf/CustomerBalance app/code/community/Wf/CustomerBalance
+
+app/design/adminhtml/default/default/layout/wf app/design/adminhtml/default/default/layout/wf
+app/design/adminhtml/default/default/template/wf app/design/adminhtml/default/default/template/wf
+
+app/design/frontend/base/default/layout/customerbalance.xml app/design/frontend/base/default/layout/customerbalance.xml
+app/design/frontend/base/default/template/customerbalance app/design/frontend/base/default/template/customerbalance
+
+skin/adminhtml/default/default/wf skin/adminhtml/default/default/wf
+skin/frontend/base/default/wf skin/frontend/base/default/wf
+
+app/locale/en_US/template/email/wf app/locale/en_US/template/email/wf
+app/locale/en_US/Wf_CustomerBalance.csv app/locale/en_US/Wf_CustomerBalance.csv

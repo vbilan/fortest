@@ -1,0 +1,81 @@
+<config>
+    <api2>
+        <resources>
+            <customerbalance translate="title" module="api2">
+                <group>customer</group>
+                <sort_order>100</sort_order>
+                <model>wf_customerbalance/api2_balance</model>
+                <working_model>wf_customerbalance/balance</working_model>
+                <title>Store Credit</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                    </admin>
+                </privileges>
+                <attributes translate="balance_id customer_id website_id amount base_currency_code action notify_by_email" module="api2">
+                    <balance_id>Balance ID</balance_id>
+                    <customer_id>Customer ID</customer_id>
+                    <website_id>Website ID</website_id>
+                    <amount>Balance Amount</amount>
+                    <action>Action (add/subtract/update)</action>
+                    <base_currency_code>Currency Code</base_currency_code>
+                    <notify_by_email>Notify customer of balance update?</notify_by_email>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <write>
+                            <balance_id>1</balance_id>
+                            <customer_id>1</customer_id>
+                            <base_currency_code>1</base_currency_code>
+                        </write>
+                        <read>
+                            <notify_by_email>1</notify_by_email>
+                        </read>
+                    </admin>
+                </exclude_attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:id/store_credit</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/store_credit</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customerbalance>
+
+            <customerbalance_history translate="title" module="api2">
+                <group>customer</group>
+                <sort_order>101</sort_order>
+                <model>wf_customerbalance/api2_balance_history</model>
+                <working_model>wf_customerbalance/history</working_model>
+                <title>Store Credit History</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="is_customer_notified additional_info balance_delta balance_amount updated_at balance_id action history_id" module="api2">
+                    <is_customer_notified>Was cutomer notified?</is_customer_notified>
+                    <additional_info>Additional info included in update</additional_info>
+                    <balance_delta>Delta balance (change amount)</balance_delta>
+                    <balance_amount>New balance after change</balance_amount>
+                    <updated_at>Updated timestamp</updated_at>
+                    <balance_id>Balance ID</balance_id>
+                    <action>Action code for what was performed (1=UPDATED, 2=CREATED, 3=USED, 4=REFUNDED, 5=REVERTED, 6=IMPORTED)</action>
+                    <history_id>History entry ID</history_id>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/customer/:id/store_credit/history</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customerbalance_history>
+        </resources>
+    </api2>
+</config>

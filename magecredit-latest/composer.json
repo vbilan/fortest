@@ -1,0 +1,15 @@
+{
+  "name":"jayelkaake/creditmage",
+  "type":"magento-module",
+  "homepage":"https://www.magecredit.com/",
+  "description":"Magento Store Credit Extension extension",
+  "authors":[
+    {
+      "name":"Jay El-Kaake",
+      "email":"hi@magecredit.com"
+    }
+  ],
+  "require":{
+    "magento-hackathon/magento-composer-installer":"*"
+  }
+}

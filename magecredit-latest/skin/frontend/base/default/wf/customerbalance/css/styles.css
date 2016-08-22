@@ -1,0 +1,29 @@
+
+#checkout-step-review .data-table .btn-remove,
+.cart .totals table tbody tr .a-right .btn-remove,
+.checkout-multishipping-overview .data-table .btn-remove,
+#details-table .btn-remove {
+    display:-moz-inline-stack;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+.my-account .storecredit .account-balance,
+.my-account .storecredit .balance-history,
+.my-account .storecredit .redeem-voucher
+ {
+    margin-bottom: 24px;
+}
+
+
+/*
+    Improves the responsive display for firecheckout.
+*/
+.firecheckout-section #customerbalance_placer label{
+    display: inline;
+}
+.firecheckout-section dl#customerbalance_placer {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+}

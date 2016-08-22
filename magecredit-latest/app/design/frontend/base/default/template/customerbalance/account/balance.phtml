@@ -1,0 +1,7 @@
+
+<div class="account-balance">
+    <h2 class="sub-title"><?php echo $this->__('Balance'); ?></h2>
+    <?php echo $this->__('Your current balance is:'); ?>
+
+    <?php echo Mage::helper('core')->currency($this->getBalance()); ?>
+</div>

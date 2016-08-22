@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>wf/customerbalance/css/styles.css</stylesheet>
+            </action>
+        </reference>
+    </default>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="wf_customerbalance">
+                <name>wf_customerbalance</name>
+                <path>wf_customerbalance/info/</path>
+                <label>Store Credit</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <wf_customerbalance_info_index translate="label">
+        <label>Customer My Account Store Credit</label>
+        <update handle="customer_account"/>
+
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="customerbalance.wrapper" template="customerbalance/account/wrapper.phtml" translate="label">
+                <label>Store Credit Balance and History Wrapper</label>
+                <block type="wf_customerbalance/account_balance" name="balance" template="customerbalance/account/balance.phtml" />
+                <block type="wf_customerbalance/account_balance" name="redeem_voucher" template="customerbalance/account/redeem_voucher.phtml"/>
+                <block type="wf_customerbalance/account_history" name="history" template="customerbalance/account/history.phtml"/>
+            </block>
+        </reference>
+    </wf_customerbalance_info_index>
+
+
+
+    <wf_customerbalance_checkout>
+        <reference name="checkout.onepage.payment">
+            <block type="core/template" name="checkout.onepage.payment.additional" as="additional" />
+            <block type="core/text_list" name="checkout.onepage.payment.methods_additional" as="methods_additional" >
+                <block type="wf_customerbalance/checkout_onepage_payment_additional" template="customerbalance/checkout/onepage/payment/additional.phtml" name="customerbalance" />
+            </block>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>wf/customerbalance/js/checkout.js</name></action>
+        </reference>
+    </wf_customerbalance_checkout>
+
+
+    <!-- Default onepage checkout but also for: `J2T OneCheckout`, `Magento Templates - OnePage Magento Checkout`, `EcommerceTeam Easy Checkout 2`, `Quick One Page Checkout` -->
+    <checkout_onepage_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </checkout_onepage_index>
+    <!-- Adds IWD One Step Checkout support: -->
+    <opc_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </opc_index_index>
+    <!-- Used for `MageStore One Step Checkout` and `Apptha One Step Checkout` -->
+    <onestepcheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </onestepcheckout_index_index>
+
+    <!-- Used for `OneStepCheckout(.com)` -->
+    <wf_customerbalance_idev_onestepcheckout>
+        <reference name="choose-payment-method">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional" template="customerbalance/idev_onestepcheckout/payment/additional.phtml" name="customerbalance" />
+            <block type="wf_customerbalance/checkout_onepage_payment_additional" template="customerbalance/idev_onestepcheckout/payment/scripts.phtml" name="customerbalance_scripts" />
+        </reference>
+    </wf_customerbalance_idev_onestepcheckout>
+    <onestepcheckout_index_index><update handle="wf_customerbalance_idev_onestepcheckout"/></onestepcheckout_index_index>
+    <onestepcheckout_ajax_save_billing><update handle="wf_customerbalance_idev_onestepcheckout"/></onestepcheckout_ajax_save_billing>
+    <onestepcheckout_ajax_set_methods_separate><update handle="wf_customerbalance_idev_onestepcheckout"/></onestepcheckout_ajax_set_methods_separate>
+    <onestepcheckout_ajax_add_coupon><update handle="wf_customerbalance_idev_onestepcheckout"/></onestepcheckout_ajax_add_coupon>
+    <onestepcheckout_ajax_paymentrefresh><update handle="wf_customerbalance_idev_onestepcheckout"/></onestepcheckout_ajax_paymentrefresh>
+
+    <!-- Used for older versions of `MageStore One Step Checkout` -->
+    <onestepquickcheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </onestepquickcheckout_index_index>
+    <!-- For `GoMage LightCheckout` -->
+    <gomage_checkout_onepage_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </gomage_checkout_onepage_index>
+
+    <!-- For `Fire Checkout` 1.5 -->
+    <firecheckout_index_index>
+        <reference name="checkout.onepage.payment.methods.scripts">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional"
+                   template="customerbalance/tm_firecheckout/payment/scripts.phtml"
+                   name="customerbalance_scripts" />
+        </reference>
+        <reference name="checkout.onepage.payment.methods_additional" as="methods_additional">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional"
+                   template="customerbalance/tm_firecheckout/payment/additional.phtml"
+                   name="customerbalance" />
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>wf/customerbalance/js/checkout.js</name></action>
+        </reference>
+    </firecheckout_index_index>
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.onepage.payment.methods.scripts">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional"
+                   template="customerbalance/tm_firecheckout/payment/scripts.phtml"
+                   name="customerbalance_scripts" />
+        </reference>
+    </firecheckout_index_updatecheckout>
+    <!-- For `Fire Checkout` 2.0 -->
+    <firecheckout_onepage_index>
+        <update handle="firecheckout_index_index"/>
+    </firecheckout_onepage_index>
+    <!-- For `FME One Step Checkout`, `MageWorld One Step Checkout Pro`, `GrafischDirect One Step Checkout` -->
+    <checkout_onestep_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </checkout_onestep_index>
+    <!-- For `IWD Free One Page / Step Checkout` -->
+    <onepagecheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </onepagecheckout_index_index>
+    <!-- For `AheadWorks One Step Checkout` -->
+    <aw_onestepcheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </aw_onestepcheckout_index_index>
+    <!-- For `Aitoc One Step Checkout Manager` -->
+    <aitcheckout_checkout_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </aitcheckout_checkout_index>
+    <!-- For `MAGExtended Master Checkout` -->
+    <mastercheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </mastercheckout_index_index>
+    <!-- For `Lotusbreath One Step Checkout` -->
+    <lotusbreath_onestepcheckout_index_index>
+        <update handle="wf_customerbalance_checkout"/>
+    </lotusbreath_onestepcheckout_index_index>
+
+
+
+
+
+
+
+
+
+
+
+
+    <checkout_onepage_paymentmethod>
+        <reference name="scripts">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional" template="customerbalance/checkout/onepage/payment/scripts.phtml" name="customerbalance_scripts" />
+        </reference>
+        <reference name="checkout.onepage.payment">
+            <block type="core/template" name="checkout.onepage.payment.additional" as="additional" />
+            <block type="core/template" name="checkout.onepage.payment.methods_additional" as="methods_additional" />
+        </reference>
+    </checkout_onepage_paymentmethod>
+
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_order_view>
+    <sales_order_print>
+        <reference name="order_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_order_print>
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_email_order_items>
+
+
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+        </reference>
+    </sales_order_invoice>
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+        </reference>
+    </sales_order_printinvoice>
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+        </reference>
+    </sales_email_order_invoice_items>
+
+    <sales_order_creditmemo>
+        <reference name="creditmemo_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_printcreditmemo>
+        <reference name="creditmemo_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_order_printcreditmemo>
+    <sales_email_order_creditmemo_items>
+        <reference name="creditmemo_totals">
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance" template="customerbalance/order/customerbalance.phtml" />
+            <block type="wf_customerbalance/sales_order_customerbalance" name="customerbalance_total_refunded" template="customerbalance/order/customerbalance_refunded.phtml" after="-">
+                <action method="setAfterTotal"><value>grand_total</value></action>
+            </block>
+        </reference>
+    </sales_email_order_creditmemo_items>
+
+
+    <checkout_multishipping_billing>
+        <reference name="payment_methods_before">
+            <block type="wf_customerbalance/checkout_onepage_payment_additional" template="customerbalance/checkout/multishipping/payment.phtml" name="customerbalance" />
+        </reference>
+    </checkout_multishipping_billing>
+</layout>

@@ -1,0 +1,124 @@
+<?php
+/**
+ * @see Wf_CustomerBalance_Block_Checkout_Onepage_Payment_Additional
+ */
+?>
+<?php if ($this->isDisplayContainer()): ?>
+    <div class="checkout-onepage-payment-additional-customerbalance" id="customerbalance_placer">
+        <input type="hidden" name="payment[use_customer_balance]" value="0" />
+        <input type="checkbox" class="checkbox" name="payment[use_customer_balance]" value="1" id="use_customer_balance" <?php echo ($this->isCustomerBalanceUsed() ? 'checked' : '') ?>/>
+
+        <?php $balance = Mage::helper('core')->currency($this->getBalance()); ?>
+        <label for="use_customer_balance">
+        <strong>
+            <?php echo Mage::helper('wf_customerbalance')->__('Use Store Credit'); ?>
+            (<span id="customerbalance_available_amount"><?php echo $balance; ?></span>
+            <?php echo Mage::helper('wf_customerbalance')->__('available'); ?>)
+        </strong>
+        </label>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+    var isFullyPaidAfterCustomerBalanceApplication = <?php echo ($this->isFullyPaidAfterApplication() ? 'true' : 'false'); ?>;
+    var customerBalanceSubstracted = <?php if ($this->isCustomerBalanceUsed()): ?>true<?php else: ?>false<?php endif; ?>;
+
+    if (customerBalanceSubstracted) {
+        quoteBaseGrandTotal += <?php echo (float)$this->getQuote()->getBaseCustomerBalAmountUsed(); ?>;
+        checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+        customerBalanceSubstracted = false;
+    }
+
+    Payment.prototype.switchCustomerBalanceCheckbox = function() {
+
+        if (!customerBalanceSubstracted && $('use_customer_balance').checked) {
+            quoteBaseGrandTotal -= <?php echo (float)$this->getBalance(); ?>;
+            customerBalanceSubstracted = true;
+            checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+        }
+        if (customerBalanceSubstracted && !$('use_customer_balance').checked) {
+            quoteBaseGrandTotal += <?php echo (float)$this->getBalance(); ?>;
+            customerBalanceSubstracted = false;
+            checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+        }
+        if (((checkQuoteBaseGrandTotal < 0.0001 || checkQuoteBaseGrandTotal > 0.0001) && quoteBaseGrandTotal == 0) || (quoteBaseGrandTotal > checkQuoteBaseGrandTotal)) {
+            quoteBaseGrandTotal = checkQuoteBaseGrandTotal;
+        }
+
+
+        /**
+         * @type {Boolean} True if the cart is already a $0 total checkout BEFORE using magecredit store credit. False otherwise.
+         */
+        var isCartAlreadyZeroTotal = typeof quoteBaseGrandTotal !== 'undefined' && quoteBaseGrandTotal <= 0 && !customerBalanceSubstracted;
+        if (isCartAlreadyZeroTotal) {
+            // IF the cart is already $0 total before we've touched it, we might as well hide the store credit payment option.
+            $('customerbalance_placer').hide();
+            $('use_customer_balance').checked = false;
+        }
+
+        if (quoteBaseGrandTotal < 0.0001) {
+            var elements = Form.getElements(this.form);
+            for (var i=0; i<elements.length; i++) {
+                if ($('use_customer_balance').checked) {
+                    if (elements[i].name == 'payment[method]') {
+                        elements[i].disabled = true;
+                    }
+                }
+                if (elements[i].name == 'payment[method]' && elements[i].value == 'free') {
+                    // Auto-check the "No Payment Information Required" payment option if the cart total 
+                    // is already $0 and we're not spending any store credit right now.
+                    if (isCartAlreadyZeroTotal) {
+                        elements[i].checked = true;
+                    } else {
+                        elements[i].checked = false;
+                        elements[i].disabled = true;
+                        $(elements[i].parentNode).hide();
+                    }
+                }
+            }
+            if ($('use_customer_balance').checked) {
+                $('checkout-payment-method-load').hide();
+                payment.switchMethod();
+            }
+        } else {
+            var elements = Form.getElements(this.form);
+            for (var i=0; i<elements.length; i++) {
+                if (elements[i].name == 'payment[method]') {
+                    elements[i].disabled = false;
+                }
+            }
+            $('checkout-payment-method-load').show();
+            payment.switchMethod(payment.lastUsedMethod);
+        }
+    };
+
+    if (payment) {
+        var customerBalanceInit = function() {
+            if ($('use_customer_balance')) {
+                $('use_customer_balance').disabled = false;
+            }
+            this.switchCustomerBalanceCheckbox();
+        };
+        payment.addAfterInitFunction('customerbalance', customerBalanceInit.bind(payment));
+        var customerBalanceValidate = function() {
+            if (quoteBaseGrandTotal < 0.0001) {
+                return true;
+            }
+            return false;
+        };
+        payment.addBeforeValidateFunction('customerbalance', customerBalanceValidate.bind(payment));
+        
+        payment.storeCreditUsageToggleUrl = '<?php echo $this->getUrl('wf_customerbalance/onepage/ajaxToggle', array('_secure'=>true)); ?>';
+    }
+
+    
+    StoreCreditUsageToggleUrl = '<?php echo $this->getUrl('wf_customerbalance/onepage/ajaxToggle', array('_secure'=>true)); ?>';
+
+    
+    document.observe('dom:loaded', function() {
+        if(typeof(IWD) === 'undefined') {
+            Event.observe($('use_customer_balance'), 'click', payment.switchCustomerBalanceCheckbox);
+        }
+    });
+    //]]>
+    </script>
+<?php endif; ?>
